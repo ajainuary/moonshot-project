@@ -12,6 +12,8 @@ contract Pool is ERC20, Ownable {
     
     mapping(address => uint256) public value;
 
+    event UpdateValue(address indexed token_addr, uint256 value);
+
     constructor() ERC20("MoonshotPoolShare", "MNSPOOL") {}
 
     function deposit(uint256 amt) public {
@@ -30,6 +32,7 @@ contract Pool is ERC20, Ownable {
 
     function setValue(address token_addr, uint256 _value) public onlyOwner {
         value[token_addr] = _value;
+        emit UpdateValue(token_addr, _value);
     }
 
     function redeem(address token_addr, uint256 token_amt) public {
