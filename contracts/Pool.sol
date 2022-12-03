@@ -8,7 +8,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract Pool is ERC20, Ownable {
     uint256 pool_shares = 1;
     uint256 pool_value = 1;
-    address pool_token = 0x7EF2e0048f5bAeDe046f6BF797943daF4ED8CB47;
+    address pool_token = 0xEc29164D68c4992cEdd1D386118A47143fdcF142;
     
     mapping(address => uint256) public value;
 
@@ -16,7 +16,7 @@ contract Pool is ERC20, Ownable {
 
     function deposit(uint256 amt) public {
         IERC20(pool_token).transferFrom(msg.sender, address(this), amt);
-        uint256 shares = amt * pool_shares / (amt + pool_value);
+        uint256 shares = (amt * pool_shares) / pool_value;
         pool_shares += shares;
         pool_value += amt;
         _mint(msg.sender, shares);
